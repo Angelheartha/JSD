@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+{% block content %}
+<img src="{% static 'images/images.jpg' %}" alt="mu">
+  <hr>
+  <h1>TEAM HAMUSTER</h1>
+  <table><em>
+    <tr><td>Japasease stories</td></tr>
+    <tr><td>Hebrew stories</td></tr>
+    <tr><td>English stories</td></tr>
+  </em></table>
+  <h2>Content</h2>
+  <p>Study and be hamuster!</p>
+  <ul>
+    <li><strong>Books:</strong> {{ num_books }}</li>
+    <li><strong>Copies:</strong> {{ num_instances }}</li>
+    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+    <li><strong>Authors:</strong> {{ num_authors }}</li>
+  </ul>
+{% endblock %}
