@@ -3,6 +3,11 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
 import uuid
+import datetime
+
+
+
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
@@ -65,6 +70,8 @@ class BookInstance(models.Model):
 
 class Meta:
     ordering = ['due_back']
+    permissions = (("can_mark_returned", "Set book as returned"),)
+
 
     def __str__(self):
         return f'{self.id} ({self.book.title})'
