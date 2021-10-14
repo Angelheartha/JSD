@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Book, Author, BookInstance, Genre
-from django.views import generic
+from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 import datetime
 from django.contrib.auth.decorators import login_required, permission_required
@@ -10,8 +10,7 @@ from django.urls import reverse
 from .forms import RenewBookForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Author
-
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class AuthorCreate(CreateView):
@@ -56,8 +55,6 @@ def renew_book_librarian(request, pk):
     }
 
     return render(request, 'catalog/book_renew_librarian.html', context)
-
-
 
 
 
@@ -126,4 +123,26 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+      return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+
+
+
+class MyView(PermissionRequiredMixin, View):
+    permission_required  = 'catalog.staff_member_required'
+    model = BookInstance
+    template_name = 'catalog/bookinstace_see.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+      return BookInstance.objects.filter(borrower=self.request.user.is_staff).filter(status__exact='o').order_by('due_back')
+
+
+
+#class BooksByUserListView(LoginRequiredMixin, generic.ListView):
+          #model = BookInstance
+          #template_name = 'catalog/bookinstace_see.html'
+          #paginate_by = 10
+
+          #def get_queryset(self):
+              #return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by(
+                  #'due_back')
