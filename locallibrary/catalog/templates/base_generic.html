@@ -19,7 +19,7 @@
           <li><a href="{% url 'books' %}">Hebrew story</a></li>
           <li><a href="{% url 'book'  %}">Japanease story</a></li>
           <l1><a href="{% url 'bks' %}">English story</a></l1>
-            {% if user.is_authenticated %}
+         {% if user.is_authenticated %}
    <li>User: {{ user.get_username }}</li>
 
    <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
@@ -29,14 +29,12 @@
    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
    {% endif %}
 
+
    {% if user.is_staff %}
-   <li>User: {{ user.get_username }}</li>
+   <li>User: {{ user.is_staff }}</li>
 
    <li><a href="{% url 'All-borrowed' %}">All Borrowed</a></li>
 
-   <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-   {% else %}
-   <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
    {% endif %}
 
 

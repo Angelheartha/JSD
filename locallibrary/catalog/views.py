@@ -1,3 +1,4 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render
 from .models import Book, Author, BookInstance, Genre
 from django.views import generic, View
@@ -11,6 +12,8 @@ from .forms import RenewBookForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import User
 
 
 class AuthorCreate(CreateView):
@@ -127,22 +130,22 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
 
 
 
-class MyView(PermissionRequiredMixin, View):
-    permission_required  = 'catalog.staff_member_required'
+#class MyView(PermissionRequiredMixin, View):
+    #permission_required  = 'catalog.staff_member_required'
+    #model = BookInstance
+    #template_name ='catalog/bookinstace_see.html'
+    #paginate_by = 10
+
+    #def get_queryset(self):
+      #return BookInstance.objects.filter(borrower=self.request.user.is_staff).filter(status__exact='o').order_by('due_back')
+
+#@staff_member_required('catalog/staff_member_required')
+class BooksByUserListView(LoginRequiredMixin, generic.ListView):
     model = BookInstance
     template_name = 'catalog/bookinstace_see.html'
     paginate_by = 10
 
-    def get_queryset(self):
-      return BookInstance.objects.filter(borrower=self.request.user.is_staff).filter(status__exact='o').order_by('due_back')
 
-
-
-#class BooksByUserListView(LoginRequiredMixin, generic.ListView):
-          #model = BookInstance
-          #template_name = 'catalog/bookinstace_see.html'
-          #paginate_by = 10
-
-          #def get_queryset(self):
-              #return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by(
+    #def get_queryset(self):
+      #return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by(
                   #'due_back')
