@@ -12,9 +12,9 @@ from .models import BookInstance
 from django.core.mail import EmailMessage
 
 class InquiryForm(forms.Form):
-    name = forms.CharField(label='名前', max_length=30)
-    email = forms.EmailField(label='メール')
-    inquiry = forms.CharField(label='問い合わせ内容', widget=forms.Textarea)
+    name = forms.CharField(label='name', max_length=30)
+    email = forms.EmailField(label='E-mail')
+    inquiry = forms.CharField(label='Feel free to ask any questions', widget=forms.Textarea)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
