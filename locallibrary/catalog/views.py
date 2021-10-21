@@ -14,6 +14,9 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from . import forms
+from django.conf import settings
+from django.core.mail import send_mail
+
 
 
 class ContactView(generic.FormView):
