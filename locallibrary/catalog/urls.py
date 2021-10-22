@@ -2,6 +2,7 @@ from django.urls import path
 from. import views
 from django.contrib.auth.models import User
 
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('books/Hebrew', views.BookListView.as_view(), name='books'),
@@ -20,5 +21,5 @@ urlpatterns = [
     path('book/<int:pk>/update/', views.BookUpdate.as_view(), name='book-update'),
     path('book/<int:pk>/delete/', views.BookDelete.as_view(), name='book-delete'),
 
-
 ]
+
